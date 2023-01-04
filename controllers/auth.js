@@ -59,7 +59,7 @@ exports.signin = (req, res) => {
             });
         }
 
-        if (!user.autheticate(password)) {
+        if (!user.authenticate(password)) {
             return res.status(401).json({
                 error: 'Incorrect password'
             });
@@ -78,4 +78,39 @@ exports.signin = (req, res) => {
             user: { _id, name, email, role }
         });
     });
+};
+
+
+// USER SIGNOUT
+exports.signout = (req, res) => {
+    res.clearCookie('authToken');
+    res.json({ msg: 'User signout successful' });
+};
+
+
+// protected routes (middleware)
+exports.isSignedIn = expressJwt({
+    secret: process.env.TOKEN_STRING,
+    userProperty: 'auth'
+});
+
+
+// CUSTOM MIDDLEWARES
+exports.isAuthenticated = (req, res, next) => {
+    let authenticated = req.profile && req.auth && req.profile._id === req.auth._id;
+    if (!authenticated) {
+        return res.status(403).json({
+            error: 'ACCESS DENIED'
+        });
+    }
+    next();
+};
+
+exports.isAdmin = (req, res, next) => {
+    if (req.profile.role === 0) {
+        return res.status(403).json({
+            error: 'ACCESS DENIED, Only admin can access this page'
+        });
+    }
+    next();
 };

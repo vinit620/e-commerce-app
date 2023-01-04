@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const { signup, signin } = require('../controllers/auth');
+const { signup, signin, signout } = require('../controllers/auth');
 const router = express.Router();
 
 // User Registration
@@ -23,5 +23,7 @@ router.post(
     signin
 );
 
+// User Signout
+router.get('/signout', signout);
 
 module.exports = router;
