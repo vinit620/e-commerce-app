@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
+var { expressjwt: expressJwt } = require("express-jwt");
 
 
 // USER REGISTRATION
@@ -91,13 +91,14 @@ exports.signout = (req, res) => {
 // protected routes (middleware)
 exports.isSignedIn = expressJwt({
     secret: process.env.TOKEN_STRING,
+    algorithms: ["HS256"],
     userProperty: 'auth'
 });
 
 
 // CUSTOM MIDDLEWARES
 exports.isAuthenticated = (req, res, next) => {
-    let authenticated = req.profile && req.auth && req.profile._id === req.auth._id;
+    let authenticated = req.profile && req.auth && req.profile._id == req.auth._id;
     if (!authenticated) {
         return res.status(403).json({
             error: 'ACCESS DENIED'

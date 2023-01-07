@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -22,7 +24,7 @@ app.use(cors());
 
 // Routes
 app.use('/api', authRouter);
-
+app.use('/api', userRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server started at port ${PORT}`));
