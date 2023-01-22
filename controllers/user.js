@@ -15,7 +15,7 @@ exports.getUserById = (req, res, next, id) => {
         req.profile = user;
         next();
     });
-};
+}
 
 
 exports.getUser = (req, res) => {
@@ -27,7 +27,7 @@ exports.getUser = (req, res) => {
     req.profile.updatedAt = undefined;
 
     return res.json(req.profile);
-};
+}
 
 
 exports.updateUser = (req, res) => {
@@ -53,7 +53,7 @@ exports.updateUser = (req, res) => {
             res.json(user);
         }
     );
-};
+}
 
 
 exports.userPurchaseList = (req, res) => {
@@ -71,7 +71,7 @@ exports.userPurchaseList = (req, res) => {
 
             res.json(order);
         });
-};
+}
 
 
 // Middleware to update the user's purchase list in DB
@@ -104,4 +104,4 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
             next();
         }
     );
-};
+}

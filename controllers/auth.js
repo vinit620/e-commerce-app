@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
             email: user.email,
         });
     });
-};
+}
 
 
 // USER SIGNIN
@@ -78,14 +78,14 @@ exports.signin = (req, res) => {
             user: { _id, name, email, role }
         });
     });
-};
+}
 
 
 // USER SIGNOUT
 exports.signout = (req, res) => {
     res.clearCookie('authToken');
     res.json({ msg: 'User signout successful' });
-};
+}
 
 
 // protected routes (middleware)
@@ -93,7 +93,7 @@ exports.isSignedIn = expressJwt({
     secret: process.env.TOKEN_STRING,
     algorithms: ["HS256"],
     userProperty: 'auth'
-});
+})
 
 
 // CUSTOM MIDDLEWARES
@@ -105,7 +105,7 @@ exports.isAuthenticated = (req, res, next) => {
         });
     }
     next();
-};
+}
 
 exports.isAdmin = (req, res, next) => {
     if (req.profile.role === 0) {
@@ -114,4 +114,4 @@ exports.isAdmin = (req, res, next) => {
         });
     }
     next();
-};
+}
