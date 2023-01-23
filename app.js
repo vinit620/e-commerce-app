@@ -8,6 +8,7 @@ const cors = require('cors');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
+const productRouter = require('./routes/product');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cors());
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', categoryRouter);
+app.use('/api', productRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
