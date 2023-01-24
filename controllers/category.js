@@ -1,6 +1,8 @@
 const Category = require('../models/category');
 
 
+/*  - Middleware that creates a new property named "category" in req
+    - req.category is the category information if it is found in DB    */
 exports.getCategoryById = (req, res, next, id) => {
 
     // find category in DB
